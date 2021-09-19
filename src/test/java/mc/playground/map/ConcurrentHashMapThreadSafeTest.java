@@ -56,4 +56,48 @@ public class ConcurrentHashMapThreadSafeTest {
         assertEquals("HostGuest", REPORT);
         assertEquals(1, map.size());
     }
+
+    @Test
+    void readLock_whenCompute() {
+        Map<Integer, Integer> map = new ConcurrentHashMap<>();
+        map.put(1, nextInt());
+        REPORT = "";
+
+        new Thread(()->{
+            map.get(1);
+            REPORT += "Read";
+        }).start();
+
+        map.compute(1, (key, oldValue)->{
+            safeSleep(1000);
+            REPORT += "Compute";
+            return nextInt();
+        });
+
+        safeSleep(100);
+        assertEquals("ReadCompute", REPORT);
+    }
+
+    @Test
+    void readLock_whenForEach() {
+        Map<Integer, Integer> map = new ConcurrentHashMap<>();
+        map.put(1, nextInt());
+        REPORT = "";
+
+        new Thread(()->{
+            safeSleep(500);
+            map.get(1);
+            REPORT += "Read";
+        }).start();
+
+        map.forEach((key, oldValue)->{
+            safeSleep(1000);
+            REPORT += "Compute";
+        });
+
+        safeSleep(100);
+        assertEquals("ReadCompute", REPORT);
+    }
+
+
 }

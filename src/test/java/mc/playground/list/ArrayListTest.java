@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ForEachLoopModificationTest {
+public class ArrayListTest {
 
     @Test
     void testRemoval() {

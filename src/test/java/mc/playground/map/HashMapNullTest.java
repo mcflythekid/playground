@@ -10,10 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class HashMapNullKeyTest {
+public class HashMapNullTest {
 
     @Test
-    public void testNullKeyHashMap() {
+    public void hashMap() {
         Map<String, String> map = new HashMap<>();
         map.put("concac", "cailon");
         map.put(null, "cailon-1");
@@ -23,7 +23,7 @@ public class HashMapNullKeyTest {
     }
 
     @Test()
-    public void testNullKeyConcurrentHashMap() {
+    public void concurrentHashMap() {
         assertThrows(NullPointerException.class, () -> {
             Map<String, String> map = new ConcurrentHashMap<>();
             map.put(null, "cailon-1");
